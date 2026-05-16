@@ -695,15 +695,16 @@
   .improve-block {
     background: var(--bg-tint);
     border-radius: var(--radius-sm);
-    padding: 24px;
+    padding: 28px 24px;
     margin-top: 20px;
+    text-align: center;
   }
   
   .improve-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
+    font-size: 24px;
     color: var(--ink);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-weight: 500;
   }
   
@@ -711,13 +712,47 @@
     font-size: 14px;
     color: var(--text-secondary);
     line-height: 1.6;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
   }
   
-  .improve-contact {
-    font-size: 14px;
-    color: var(--ink);
+  .contact-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-size: 15px;
     font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    min-width: 130px;
+  }
+  
+  .whatsapp-btn {
+    background: #25D366;
+    color: white;
+  }
+  
+  .whatsapp-btn:hover {
+    background: #20BD5A;
+    transform: translateY(-1px);
+  }
+  
+  .telegram-btn {
+    background: #229ED9;
+    color: white;
+  }
+  
+  .telegram-btn:hover {
+    background: #1B8AC1;
+    transform: translateY(-1px);
   }
   
   .signature {
@@ -1277,8 +1312,8 @@
         <svg viewBox="0 0 1063.47 1144.22" xmlns="http://www.w3.org/2000/svg"><path d="M 909.29 842.41 C 843.29 823.46, 777.42 785.99, 716.44 747.66 C 747.54 798.75, 775.25 846.14, 793.10 900.92 C 810.65 954.76, 824.47 1027.89, 789.79 1077.26 C 746.90 1138.33, 666.27 1151.22, 603.59 1109.88 C 505.13 1044.96, 436.71 905.75, 412.25 794.62 C 367.26 882.24, 289.68 969.42, 194.54 992.04 C 119.11 1007.77, 37.69 949.27, 17.17 877.40 C -3.50 805.02, 20.30 731.70, 64.74 674.08 C 103.68 623.59, 151.12 582.91, 207.84 549.91 C 162.76 529.05, 122.17 508.02, 92.68 471.30 C 70.68 443.90, 58.87 408.12, 75.83 375.71 C 94.38 340.27, 131.27 322.76, 169.91 318.23 C 232.15 310.93, 303.96 338.94, 357.61 373.36 C 350.83 279.49, 352.42 183.53, 387.84 94.54 C 400.63 62.38, 419.43 29.31, 451.40 16.06 C 491.27 -0.46, 538.74 20.88, 565.73 54.55 C 633.92 139.66, 632.88 294.88, 629.79 361.30 C 687.88 304.49, 861.92 165.66, 947.98 226.37 C 968.92 241.15, 979.02 267.93, 978.78 293.55 C 978.53 319.17, 970.06 344.29, 957.87 366.82 C 915.45 445.25, 862.53 494.41, 770.33 550.45 C 856.67 592.48, 933.68 637.71, 1005.23 701.76 C 1021.35 716.21, 1041.77 740.36, 1049.04 760.75 C 1078.56 843.69, 964.45 858.26, 909.29 842.41 Z" class="flower-fill"/><path d="M 511.00 501.30 C 473.38 526.41, 446.63 565.51, 442.33 612.67 C 438.97 649.19, 468.73 687.38, 506.31 678.70 C 556.15 667.15, 598.45 622.89, 613.89 576.15 C 623.33 547.56, 610.18 518.31, 589.37 501.35 C 568.43 484.32, 536.63 484.15, 511.00 501.30 Z" class="flower-center"/></svg>
       </div>
       <div class="promo-label">Ваш промокод</div>
-      <div class="promo-code">BEAUTY15</div>
-      <div class="promo-note">–15% на следующую покупку · действует 14 дней</div>
+      <div class="promo-code">ЛЮБОВЬ</div>
+      <div class="promo-note">–10% на весь ассортимент</div>
     </div>
     
     <!-- Блок Карт (показывается если NPS высокий) -->
@@ -1286,10 +1321,10 @@
       <div class="yandex-title">Будем рады, если вы поделитесь отзывом в картах</div>
       <div class="yandex-subtitle">Это поможет другим найти нас</div>
       <div class="map-buttons">
-        <button class="btn btn-yandex" onclick="alert('В реальной версии — ссылка на ваш магазин в Яндекс.Картах')">
+        <button class="btn btn-yandex" onclick="window.open('https://yandex.com/maps/org/ferraskin/37794485824?si=katbk47qphy6w7j35mg7v46tcm', '_blank')">
           Оставить отзыв в Яндекс.Картах
         </button>
-        <button class="btn btn-2gis" onclick="alert('В реальной версии — ссылка на ваш магазин в 2ГИС')">
+        <button class="btn btn-2gis" onclick="window.open('https://2gis.ru/vladivostok/geo/70000001055633595', '_blank')">
           Оставить отзыв в 2ГИС
         </button>
       </div>
@@ -1297,9 +1332,12 @@
     
     <!-- Блок для недовольных клиентов -->
     <div class="improve-block" id="improveBlock" style="display: none;">
-      <div class="improve-title">Расскажите, что мы можем улучшить</div>
+      <div class="improve-title">Свяжитесь с нами</div>
       <div class="improve-text">Мы видим, что не всё прошло гладко. Очень хотим разобраться и стать лучше. Напишите нам — это важно.</div>
-      <div class="improve-contact">📞 +7 (XXX) XXX-XX-XX · WhatsApp · Telegram</div>
+      <div class="contact-buttons">
+        <a href="https://wa.me/79147935353" target="_blank" class="contact-btn whatsapp-btn">WhatsApp</a>
+        <a href="https://t.me/ferraskin" target="_blank" class="contact-btn telegram-btn">Telegram</a>
+      </div>
     </div>
     
     <p class="signature">— с любовью, ferraskin</p>
@@ -1522,26 +1560,30 @@
     // Отправляем данные в базу (не ждём ответа)
     saveToSupabase();
     
-    // Логика показа Яндекс.Карт vs блока улучшений
+    // Логика показа Яндекс.Карт vs блока обратной связи
     const nps = parseInt(state.answers.nps);
+    const consultantRating = state.answers.consultantRating || 0;
     const avgRating = (
       (state.answers.consultantRating || 0) + 
       (state.answers.assortmentRating || 0) + 
       (state.answers.atmosphereRating || 0)
     ) / 3;
     
-    const isPositive = nps >= 9 || avgRating >= 4.5;
+    // Если консультант ≤ 3 или NPS ≤ 6 — это негативный сценарий
+    const isNegative = (consultantRating > 0 && consultantRating <= 3) || nps <= 6 || avgRating < 3.5;
+    // Положительный — только если всё хорошо и нет негативных триггеров
+    const isPositive = !isNegative && (nps >= 9 || avgRating >= 4.5);
     
-    if (isPositive) {
-      document.getElementById('resultTitle').textContent = 'Вы — лучшие!';
-      document.getElementById('resultSubtitle').textContent = 'Спасибо за тёплые слова. Подготовили для вас подарки';
-      document.getElementById('yandexBlock').style.display = 'block';
-      document.getElementById('improveBlock').style.display = 'none';
-    } else if (nps <= 6 || avgRating < 3.5) {
+    if (isNegative) {
       document.getElementById('resultTitle').textContent = 'Спасибо за честность';
       document.getElementById('resultSubtitle').textContent = 'Нам важна ваша обратная связь';
       document.getElementById('yandexBlock').style.display = 'none';
       document.getElementById('improveBlock').style.display = 'block';
+    } else if (isPositive) {
+      document.getElementById('resultTitle').textContent = 'Вы — лучшие!';
+      document.getElementById('resultSubtitle').textContent = 'Спасибо за тёплые слова. Подготовили для вас подарки';
+      document.getElementById('yandexBlock').style.display = 'block';
+      document.getElementById('improveBlock').style.display = 'none';
     } else {
       document.getElementById('resultTitle').textContent = 'Спасибо вам!';
       document.getElementById('resultSubtitle').textContent = 'Ваше мнение очень ценно для нас';

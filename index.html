@@ -1306,7 +1306,13 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+  // Подключение к Supabase
+  const SUPABASE_URL = 'https://ehcokyyefgqksnsmcbif.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_FVqx1jm3gkDKLwtOytM2zg_I03nAB-k';
+  const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  
   const state = {
     current: 0,
     totalSteps: 8,
@@ -1461,7 +1467,63 @@
     document.getElementById('next7').disabled = !(digitsOnly.length === 11 && npsSelected);
   }
   
+  async function saveToSupabase() {
+    // Собираем все комментарии и доп-поля
+    const commentInputs = document.querySelectorAll('textarea[data-comment]');
+    const comments = {};
+    commentInputs.forEach(t => {
+      comments[t.dataset.comment] = t.value || null;
+    });
+    
+    // Свободные textarea на финальном шаге
+    const finalTextareas = document.querySelectorAll('[data-screen="7"] textarea');
+    const plans = finalTextareas[0]?.value || null;
+    const freeComment = finalTextareas[1]?.value || null;
+    
+    // Ник блогера если есть
+    const bloggerNick = document.getElementById('bloggerNickname')?.value || null;
+    
+    // Телефон без маски (только цифры)
+    const phone = document.getElementById('phoneInput')?.value?.replace(/\D/g, '') || null;
+    
+    const payload = {
+      category: state.answers.category || [],
+      consultant_rating: state.answers.consultantRating,
+      consultant_comment: comments.consultant,
+      assortment_rating: state.answers.assortmentRating,
+      assortment_comment: comments.assortment,
+      atmosphere_rating: state.answers.atmosphereRating,
+      atmosphere_comment: comments.atmosphere,
+      source: state.answers.source,
+      blogger_nickname: bloggerNick,
+      age: state.answers.age,
+      frequency: state.answers.frequency,
+      priority: state.answers.priority || [],
+      nps: parseInt(state.answers.nps),
+      phone: phone,
+      plans: plans,
+      free_comment: freeComment
+    };
+    
+    try {
+      const { data, error } = await supabaseClient
+        .from('responses')
+        .insert([payload]);
+      
+      if (error) {
+        console.error('Ошибка сохранения:', error);
+      } else {
+        console.log('Ответ сохранён успешно');
+      }
+    } catch (e) {
+      console.error('Не удалось подключиться к базе:', e);
+    }
+  }
+  
   function showResult() {
+    // Отправляем данные в базу (не ждём результата, чтобы пользователь сразу увидел результат)
+    saveToSupabase();
+    
     // Логика показа Яндекс.Карт vs блока улучшений
     const nps = parseInt(state.answers.nps);
     const avgRating = (

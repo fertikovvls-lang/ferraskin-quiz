@@ -1461,7 +1461,67 @@
     document.getElementById('next7').disabled = !(digitsOnly.length === 11 && npsSelected);
   }
   
+  // Отправка ответов в Supabase через прямой fetch (без библиотек)
+  function saveToSupabase() {
+    const SUPABASE_URL = 'https://ehcokyyefgqksnsmcbif.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_FVqx1jm3gkDKLwtOytM2zg_I03nAB-k';
+    
+    try {
+      // Собираем комментарии
+      const comments = {};
+      document.querySelectorAll('textarea[data-comment]').forEach(t => {
+        comments[t.dataset.comment] = t.value || null;
+      });
+      
+      // Свободные textarea на финальном шаге
+      const finalTextareas = document.querySelectorAll('[data-screen="7"] textarea');
+      const plans = finalTextareas[0] ? finalTextareas[0].value || null : null;
+      const freeComment = finalTextareas[1] ? finalTextareas[1].value || null : null;
+      
+      const bloggerNick = document.getElementById('bloggerNickname');
+      const phoneEl = document.getElementById('phoneInput');
+      
+      const payload = {
+        category: state.answers.category || [],
+        consultant_rating: state.answers.consultantRating,
+        consultant_comment: comments.consultant || null,
+        assortment_rating: state.answers.assortmentRating,
+        assortment_comment: comments.assortment || null,
+        atmosphere_rating: state.answers.atmosphereRating,
+        atmosphere_comment: comments.atmosphere || null,
+        source: state.answers.source,
+        blogger_nickname: bloggerNick ? bloggerNick.value || null : null,
+        age: state.answers.age,
+        frequency: state.answers.frequency,
+        priority: state.answers.priority || [],
+        nps: state.answers.nps ? parseInt(state.answers.nps) : null,
+        phone: phoneEl ? phoneEl.value.replace(/\D/g, '') || null : null,
+        plans: plans,
+        free_comment: freeComment
+      };
+      
+      // Прямой fetch к Supabase REST API
+      fetch(SUPABASE_URL + '/rest/v1/responses', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_KEY,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(payload)
+      }).catch(function(e) {
+        console.log('Ошибка отправки в базу:', e);
+      });
+    } catch (e) {
+      console.log('Ошибка сборки данных:', e);
+    }
+  }
+  
   function showResult() {
+    // Отправляем данные в базу (не ждём ответа)
+    saveToSupabase();
+    
     // Логика показа Яндекс.Карт vs блока улучшений
     const nps = parseInt(state.answers.nps);
     const avgRating = (
